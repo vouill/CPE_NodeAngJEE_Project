@@ -3,6 +3,17 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.annotation.Resource;
+import javax.ejb.EJB;
+import javax.ejb.EJBContext;
+import javax.ejb.SessionContext;
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.MessageProducer;
+import javax.jms.ObjectMessage;
+import javax.jms.Session;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +25,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import comm.UserModel;
+import ejb.MessageSenderLocal;
 
 /**
  * Servlet implementation class WatcherAuthServlet
@@ -22,6 +34,8 @@ import comm.UserModel;
 public class WatcherAuthServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	@EJB
+	MessageSenderLocal sender;
 	
 	Object obj;
 	JSONParser parser ;
@@ -44,9 +58,13 @@ public class WatcherAuthServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 				parser = new JSONParser();
-				
+				MessageSenderLocal Messagesender;
 				
 				String jsonstring = request.getParameter("json").toString();
+		
+				System.out.println(jsonstring);
+					
+			
 				 try {
 					obj = parser.parse(jsonstring);
 					jsonObject = (JSONObject) obj;
@@ -66,12 +84,15 @@ public class WatcherAuthServlet extends HttpServlet {
 				      out.println(jsontoreturn);
 			        out.close();
 			        out.flush();
-					
+			        
+			        sender.sendMessage("Ceci est un message");
+			       
 					
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			
 				
 	}
 
@@ -80,6 +101,10 @@ public class WatcherAuthServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+	}
+	
+	public void sendMessageTest(String msg){
+		
 	}
 
 }

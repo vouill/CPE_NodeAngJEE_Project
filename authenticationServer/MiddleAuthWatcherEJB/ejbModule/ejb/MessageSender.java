@@ -1,11 +1,13 @@
 package ejb;
 
 import javax.annotation.Resource;
+import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.jms.JMSContext;
-import javax.jms.Queue;
 import javax.jms.Topic;
+
+import comm.UserModel;
 
 /**
  * Session Bean implementation class MessageSender
@@ -22,16 +24,20 @@ public class MessageSender implements MessageSenderLocal {
 	JMSContext context;
 	@Resource(mappedName ="java:/jms/watcherAuthJMS")
 	Topic topic;
-	Queue queue;
+	
     public MessageSender() {
     	
-    	sendMessageJMS20("Hello world");
+    	sendMessage("Hello world");
  
     }
-    
-    public void sendMessageJMS20(String message) {
+    @PermitAll
+    public void sendMessage(String message) {
    
-    	context.createProducer().send(queue,message);
+    	context.createProducer().send(topic,message);
     }
+    
+    public void sendMessage(UserModel user) {
+    	context.createProducer().send(topic,user);
+    	}
 
 }
