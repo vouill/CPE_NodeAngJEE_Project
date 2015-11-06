@@ -2,4 +2,12 @@
 **/.project
 **/.settings
 **/build/*
+<<<<<<< Updated upstream
 **/.metadata
+=======
+**/.gradle
+**/.idea
+build.gradle
+settings.gradle
+*.iml
+>>>>>>> Stashed changes
