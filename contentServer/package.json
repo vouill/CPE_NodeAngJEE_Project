@@ -1,0 +1,35 @@
+{
+  "name": "kiwi-ninja",
+  "version": "1.0.0",
+  "description": "kiwi ninja node server",
+  "main": "app.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Chzzs/kiwiNinja.git"
+  },
+  "keywords": [
+    "kiwi",
+    "ninja"
+  ],
+  "author": "chazz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chzzs/kiwiNinja/issues"
+  },
+  "homepage": "https://github.com/Chzzs/kiwiNinja#readme",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "fs": "0.0.2",
+    "gulp": "^3.9.0",
+    "gulp-jade": "^1.1.0",
+    "gulp-sass": "^2.1.0",
+    "jade": "^1.11.0",
+    "morgan": "^1.6.1"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "port": 1242,
+  "contentDirectory": "uploads",
+  "presentationDirectory" : "presentation_content"
+}
