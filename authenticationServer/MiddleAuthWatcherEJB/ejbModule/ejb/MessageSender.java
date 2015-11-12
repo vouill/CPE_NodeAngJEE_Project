@@ -22,9 +22,15 @@ public class MessageSender implements MessageSenderLocal {
 	
 	@Inject
 	JMSContext context;
+
 	@Resource(mappedName ="java:/jms/watcherAuthJMS")
 	Topic topic;
+<<<<<<< Updated upstream
 	
+=======
+	Queue queue;
+
+>>>>>>> Stashed changes
     public MessageSender() {
     	
     	sendMessage("Hello world");

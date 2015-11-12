@@ -1,7 +1,9 @@
 package servlet;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import comm.UserModel;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import javax.annotation.Resource;
 import javax.ejb.EJB;
@@ -19,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+<<<<<<< Updated upstream
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -26,6 +29,10 @@ import org.json.simple.parser.ParseException;
 
 import comm.UserModel;
 import ejb.MessageSenderLocal;
+=======
+import java.io.IOException;
+import java.io.PrintWriter;
+>>>>>>> Stashed changes
 
 /**
  * Servlet implementation class WatcherAuthServlet
@@ -57,6 +64,7 @@ public class WatcherAuthServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+<<<<<<< Updated upstream
 				parser = new JSONParser();
 				MessageSenderLocal Messagesender;
 				
@@ -93,6 +101,38 @@ public class WatcherAuthServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			
+=======
+
+		System.out.println("coucou");
+        parser = new JSONParser();
+
+        String jsonstring = request.getParameter("json").toString();
+         try {
+            obj = parser.parse(jsonstring);
+            jsonObject = (JSONObject) obj;
+
+            String login = (String) jsonObject.get("login");
+            String pwd = (String) jsonObject.get("pwd");
+
+            user = new UserModel(login,pwd);
+
+            user.printuser();
+
+            jsontoreturn=new JSONObject();
+
+
+            jsontoreturn=user.tojson();
+             PrintWriter out = response.getWriter();
+              out.println(jsontoreturn);
+            out.close();
+            out.flush();
+
+
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+>>>>>>> Stashed changes
 				
 	}
 
