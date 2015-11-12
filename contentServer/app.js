@@ -23,6 +23,7 @@ process.env.config = JSON.stringify(config);
 app.use("/", require("./app/routes/defaultRoute.js"));
 app.use("/admin", express.static(path.join(__dirname, "public/dist/admin")));
 app.use("/watch", express.static(path.join(__dirname, "public/dist/watch")));
+app.use("/login", express.static(path.join(__dirname, "public/dist/login")));
 
 var server = http.createServer(app);
 server.listen(config.port, function() {

@@ -2,12 +2,14 @@
 **/.project
 **/.settings
 **/build/*
-<<<<<<< Updated upstream
 **/.metadata
-=======
+
 **/.gradle
 **/.idea
 build.gradle
 settings.gradle
 *.iml
->>>>>>> Stashed changes
+*.ipr
+*.iws
+node_modules
+.DS_Store

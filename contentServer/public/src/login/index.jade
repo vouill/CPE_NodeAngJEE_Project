@@ -1,0 +1,36 @@
+html(lang="en", ng-app="loginApp", ng-controller="loginController")
+
+head
+  title Watcher loginApp
+  link(rel="stylesheet", href="libs/css/bootstrap.min.css")
+
+body
+  .top-content
+    .inner-bg
+      .container#login-container
+        .row
+          .panel(class="col-sm-6 col-sm-offset-3 form-box")
+            .form-top
+              .form-top-left
+                h3 Welcome to Login
+                p Enter you username and password to log on:
+              .form-top-right
+                i(class="fa fa-key")
+            .form-bottom
+              form.login-form(role="form", ng-submit="auth(user)")
+                .form-group
+                  label.sr-only(for="form-username") Username
+                  input.form-control#form-username(type="text", name="form-username", placeholder="Username...", class="form-username", ng-model="user.login")
+                .form-group
+                  label.sr-only(for="form-password")
+                  input.form-control#form-password(type="password", name="form-password", placeholder="Password...", class="form-password", ng-model="user.pwd")
+                input.btn(type="submit", class="btn-block btn-succes" )   
+
+  script(src="libs/js/jquery.min.js")
+  script(src="libs/js/bootstrap.min.js")
+  script(src="libs/js/angular.min.js")
+
+  <!-- App -->
+  script(src="js/application/LoginApp.js")
+  script(src="js/services/AuthService.js")
+  script(src="js/controllers/LoginController.js")

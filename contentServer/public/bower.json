@@ -1,0 +1,20 @@
+{
+  "name": "asi2",
+  "version": "0.0.0",
+  "homepage": "https://github.com/vouill/CPE_NodeAngJEE_Project",
+  "authors": [
+    "Chazz <chzzs89@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

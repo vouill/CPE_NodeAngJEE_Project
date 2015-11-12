@@ -1,0 +1,18 @@
+section
+  .panel.row
+    h3
+      span.text-muted Nouvelle présentation&nbsp;
+      span.text-info {{presentation.title}}
+    p
+      span.text-muted Description&nbsp;
+      span.text-info {{presentation.description}}
+    
+  .row
+    form#new-slide(role="form", ng-submit="createPresentation(presentation)")
+      .form-group
+        label.sr-only(for="presentation-title") presentation title
+        input.form-control#presentation-title(type="text", name="presentation-title", placeholder="Title", ng-model="presentation.title")
+      .form-group
+        label.sr-only(for="presentation-description") presentation description
+        input.form-control#presentation-description(type="text", name="presentation-description", placeholder="Description", ng-model="presentation.description")
+      input.btn(type="submit", class="btn-block btn-success")    
