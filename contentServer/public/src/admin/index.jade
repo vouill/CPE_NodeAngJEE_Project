@@ -14,27 +14,15 @@ body
         button.navbar-btn(class="btn btn-default", type="button", ng-click="edit()") Edit
         button.navbar-btn(class="btn btn-default", type="button", ng-click="add()") Add
         button.navbar-btn(class="btn btn-default", type="button", ng-click="remove()") Remove
-  .container-fluid
-    aside(class="col-sm-3")
-      h3 Presentations
-      p
-        span.text-warning(ng-hide="presentations.length") Aucune présentation disponible 
-      ul
-        li(ng-repeat="presentation in presentations") 
-          a(href='/#')
-            span.text-info{{presentation.title}}&nbsp;&mdash;&nbsp;
-            span.text-muted {{presentation.description}}
-        
-    main(class="col-sm-6" ng-view)
+  main.container-fluid(ng-view)
     
-
   script(src="libs/js/jquery.min.js")
   script(src="libs/js/bootstrap.min.js")
   script(src="libs/js/angular.min.js")
   script(src="libs/js/angular-route.min.js")
 
 
-  <!-- App -->
+  // App 
   script(src="js/application/AdminApp.js")  
   
   script(src="js/services/ContentFactory.js")
@@ -46,22 +34,5 @@ body
 
   script(src="js/controllers/EventController.js")
   
-//  
-//  section
-//    .row.panel
-//      h3
-//        span.text-muted Slide&nbsp;
-//        span.text-info {{slide.title}}
-//      p
-//        span.text-muted Text&nbsp;
-//        span.text-info {{slide.text}}
-//    .row
-//      form#new-slide(role="form", ng-submit="createSlide(slide)")
-//        .form-group
-//          label.sr-only(for="slide-title") slide title
-//          input.form-control#slide-title(type="text", name="slide-title", placeholder="Title", ng-model="slide.title")
-//        .form-group
-//          label.sr-only(for="slide-text") slide text
-//          textarea.form-control#slide-text(name="slide-text", placeholder="Text", ng-model="slide.text")
-//        input.btn(type="submit", class="btn-block btn-success")    
-//
+  script(src="js/application/AdminRoutes.js")
+  

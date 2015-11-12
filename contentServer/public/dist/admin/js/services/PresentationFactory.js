@@ -10,7 +10,7 @@ angular.module('presentationFactory', []).factory('Presentation',  ['$q', functi
         presentations[id] = {id: id, title: title, description: description, slides : slides};
         deferred.resolve(presentations[id]);
         clearInterval(interval);
-      }, 3000, id, title, description, slides);
+      }, 2000, id, title, description, slides);
       return deferred.promise;
     },
 
