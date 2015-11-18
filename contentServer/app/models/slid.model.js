@@ -70,14 +70,20 @@ SlidModel.read = function(id, callback){
 
 SlidModel.update = function(slid, callback){
 	if(slid.id != null){
-		SlidModel.read(slid.id, function(err, data){
-			if(slid != data){
-				SlidModel.create(slid, function(err){
-					console.error(err);
+		fs.stat(util.getMetaFilePath(slid.id), function(err,stat){
+			if(err){
+				callback(err);
+			}else{
+				SlidModel.read(slid.id, function(err, data){
+				if(slid != data){
+					SlidModel.create(slid, function(err){
+						console.error(err);
+					});
+				}
+
+				callback();
 				});
 			}
-
-			callback();
 		});
 	}
 	else{

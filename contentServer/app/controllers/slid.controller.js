@@ -9,7 +9,7 @@ var async = require('async');
 function SlidController(){ };
 
 SlidController.list = function(callback){
-	var json = [];
+	var json = {};
 
 	fs.readdir(CONFIG.contentDirectory, function(err, buffer_dir){
 		
