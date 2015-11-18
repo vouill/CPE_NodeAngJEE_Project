@@ -13,9 +13,4 @@ settings.gradle
 *.iws
 node_modules
 .DS_Store
-*.json
-contentServer/uploads/756ce4f3-fb48-4bf7-8906-8f35acd8a8aa.txt
-*.txt
-*.json
-*.json
-*.json
+contentServer/uploads/*
