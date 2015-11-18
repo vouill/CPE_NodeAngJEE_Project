@@ -7,7 +7,7 @@ var router = express.Router();
 
 module.exports = router;
 
-var multerMiddleware = multer({"dest": "/tmp"});
+var multerMiddleware = multer({"dest": "C:/Users/Thuranos/AppData/Local/Temp/TEST"});
 
 router.post("/slids", multerMiddleware.single("file"), function(request, response){
 	console.log("post /slids");
@@ -18,9 +18,10 @@ router.post("/slids", multerMiddleware.single("file"), function(request, respons
 
 	console.log(request.file.mimetype);	
 
-	
+	SlidController.create(request.file, function(err, callback){
 
-	response.send();
+		response.send();
+	});
 });
 
 router.get("/slids", function(request, response){

@@ -47,14 +47,15 @@ SlidController.list = function(callback){
 	});
 }
 
-SlidController.create = function(id, type, title, fileName, data, callback){
+SlidController.create = function(file, callback){
 	var slid = new SlidModel();
 
-	slid.id = id;
-	slid.type = type;
-	slid.title = title;
-	slid.fileName = fileName;	
-	slid.setData(data);
+	slid.id = util.generateUUID();
+	slid.type = file.mimetype;
+	slid.title = file.originalname;
+	slid.fileName = slid.id + path.extname(file.originalname);
+
+	slid.setData(fs.readFileSync(file.path));
 
 	SlidModel.create(slid, function(err) {
 		if (err) {
