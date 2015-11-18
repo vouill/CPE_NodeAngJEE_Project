@@ -47,7 +47,7 @@ SlidModel.create = function(slid, callback){
 	else{
 		callback('error: id is null!');
 	}
-	}
+}
 
 SlidModel.read = function(id, callback){
 	if(id != null){
@@ -71,6 +71,8 @@ SlidModel.read = function(id, callback){
 SlidModel.update = function(slid, callback){
 	if(slid.id != null){
 		fs.stat(util.getMetaFilePath(slid.id), function(err,stat){
+			console.log("check metadata: " + util.getMetaFilePath(slid.id));
+
 			if(err){
 				callback(err);
 			}else{

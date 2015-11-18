@@ -26,9 +26,7 @@ SlidController.list = function(callback){
 						callback(err);
 					}
 					else{
-						var jsonToAdd = {};
-						jsonToAdd[JSON.parse(buffer_file).id] = JSON.parse(buffer_file);
-						json.push(jsonToAdd);
+						json[JSON.parse(buffer_file).id] = JSON.parse(buffer_file);
 						callback();
 					}
 				});
@@ -69,19 +67,18 @@ SlidController.create = function(id, type, title, fileName, data, callback){
 }
 
 SlidController.read = function(id, json, callback){
-	var slid = new SlidModel();
-
-	SlidModel.read(id, function(err, data){
+	
+		SlidModel.read(id, function(err, data){
 		if(err){
 			callback(err);
 		}else{
-			slid = data;
+			var slid = new SlidModel(JSON.parse(data));
 
 			if(json){
 				callback(err, data)
 			}
 			else{
-				data = slid.getData
+				data = slid.getData();
 				callback(err, data);
 			}
 		}
