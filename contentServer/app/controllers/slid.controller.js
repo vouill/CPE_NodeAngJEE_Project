@@ -6,7 +6,7 @@ var path = require("path");
 var fs = require('fs');
 var async = require('async');
 
-function SlidController(){ }
+function SlidController(){ };
 
 SlidController.list = function(callback){
 	var json = [];
@@ -26,7 +26,8 @@ SlidController.list = function(callback){
 						callback(err);
 					}
 					else{
-						var jsonToAdd = '{' + (JSON.parse(buffer_file)).id + ': ' + buffer_file + '}';
+						var jsonToAdd = {};
+						jsonToAdd[JSON.parse(buffer_file).id] = JSON.parse(buffer_file);
 						json.push(jsonToAdd);
 						callback();
 					}
@@ -53,7 +54,7 @@ SlidController.create = function(id, type, title, fileName, data, callback){
 	slid.id = id;
 	slid.type = type;
 	slid.title = title;
-	slid.fileName = fileName;
+	slid.fileName = fileName;	
 	slid.setData(data);
 
 	SlidModel.create(slid, function(err) {

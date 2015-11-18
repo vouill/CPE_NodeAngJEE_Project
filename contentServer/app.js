@@ -6,7 +6,9 @@ var fs = require('fs');
 var express = require('express');
 var SlidModel = require('./app/models/slid.model.js');
 var SlidController = require('./app/controllers/slid.controller.js');
+var IOController = require('./app/controllers/io.controller.js');
 var utils = require("./app/utils/utils.js");
+var	io = require("socket.io");
 
 var bodyParser = require('body-parser');
 var morgan = require("morgan");
@@ -19,6 +21,8 @@ process.env.CONFIG = JSON.stringify(CONFIG);
 
 //init server
 var server = http.createServer(app);
+IOController.listen(server);
+
 server.listen(CONFIG.port, function() {
 	console.log("listening to "  + CONFIG.port);
 });
@@ -116,3 +120,15 @@ app.get("/testController", function(request, response){
 
 	response.send();
 })
+
+app.get("/lol",function(request, response){
+	IOController.lol();
+
+	response.send();
+})
+
+/*var socket = io.connect();
+
+socket.on('message', function(data){
+    console.log(data.message);
+});*/

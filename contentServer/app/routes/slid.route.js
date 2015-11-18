@@ -7,9 +7,9 @@ var router = express.Router();
 
 module.exports = router;
 
-var multeMiddleware = multer({"dest": "/tmp"});
+var multerMiddleware = multer({"dest": "/tmp"});
 
-router.post("/slids", multeMiddleware.single("file"), function(request, response){
+router.post("/slids", multerMiddleware.single("file"), function(request, response){
 	console.log("post /slids");
 
 	//console.log(request.file.path);
