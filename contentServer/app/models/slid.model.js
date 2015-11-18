@@ -15,7 +15,8 @@ function SlidModel(slid){
 	var data= '';
 	
 	this.getData = function(){
-		return data;
+		
+			return data;
 	}
 	
 	this.setData = function(mydata){

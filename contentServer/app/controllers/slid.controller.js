@@ -5,6 +5,7 @@ var CONFIG = require("../../config.json");
 var path = require("path");
 var fs = require('fs');
 var async = require('async');
+var util = require('../utils/utils.js');
 
 function SlidController(){ };
 
@@ -79,6 +80,15 @@ SlidController.read = function(id, json, callback){
 			}
 			else{
 				data = slid.getData();
+				console.log("data='"+data+"'");
+				if(data=='')
+				{
+					var dataData_filePath = util.getDataFilePath(slid.fileName);
+
+					console.log(dataData_filePath);
+					data=fs.readFileSync(dataData_filePath);
+
+				}
 				callback(err, data);
 			}
 		}
