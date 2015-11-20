@@ -10,7 +10,9 @@ function IOController(){ }
 
 IOController.listen = function(server){
 	io = require("socket.io")(server);
-	listener = io.listen(server)
+	listener = io.listen(server);
+
+	var currentPres_id;
 
 	listener.sockets.on('connection', function(socket){
 		console.log('connection');
@@ -24,23 +26,29 @@ IOController.listen = function(server){
     	socket.on('slidEvent', function (slidEvent){
     		switch(slidEvent.CMD){
     			case 'START':
-    				console.log('start pres: ' + slidEvent.PRES_ID);
-    				socket.emit('slidEventServ',"FEEF");
+    				currentPres_id = slidEvent.PRES_ID;
+    				console.log('start pres: ' + currentPres_id);
+
+    				socket.emit('slidEventServ',"yooooo");
     				break;
 
 				case 'PAUSE':
+
     				break;
 
 				case 'END':
+
     				break;
 
 				case 'BEGIN':
     				break;
 
 				case 'PREV':
+
     				break;
 
 				case 'NEXT':
+				
     				break;
 
     			default:
