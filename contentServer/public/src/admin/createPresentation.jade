@@ -7,10 +7,15 @@ aside(class="col-xs-3")
         span.text-warning(ng-hide="presentations.length") No presentation available
       ul
         li(ng-repeat="presentation in presentations") 
+<<<<<<< HEAD:contentServer/public/src/admin/createPresentation.jade
           p.text-muted{{presentation.title}}&nbsp;&mdash;
             &nbsp;
             a(ng-href='/admin/#/edit/{{presentation.id}}') edit
             &nbsp;
+=======
+          p.text-muted {{presentation.title}} &mdash;&nbsp;
+            a(ng-href='/admin/#/edit/{{presentation.id}}') edit&nbsp;
+>>>>>>> working drag & drop, and working on fileupload:contentServer/public/src/templates/admin/createPresentation.jade
             a(href='/admin/#/view') view
             
 section(class="col-xs-6")
