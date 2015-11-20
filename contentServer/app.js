@@ -41,6 +41,8 @@ app.use("/admin", express.static(path.join(__dirname, "public/dist/admin")));
 app.use("/watch", express.static(path.join(__dirname, "public/dist/watch")));
 app.use("/login", express.static(path.join(__dirname, "public/dist/login")));
 
+
+
 app.get("/loadPres", function(request, response){
 	var json_obj = {};
 	
