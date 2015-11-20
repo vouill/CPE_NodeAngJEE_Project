@@ -41,8 +41,6 @@ app.use("/admin", express.static(path.join(__dirname, "public/dist/admin")));
 app.use("/watch", express.static(path.join(__dirname, "public/dist/watch")));
 app.use("/login", express.static(path.join(__dirname, "public/dist/login")));
 
-
-
 app.get("/loadPres", function(request, response){
 	var json_obj = {};
 	
@@ -73,7 +71,7 @@ app.get("/loadPres", function(request, response){
 		}
 		response.json(json_obj);	
 	});
-})
+});
 
 app.post("/savePres", function(request, response){
 	//For the sake of testing with a post method
@@ -90,7 +88,7 @@ app.post("/savePres", function(request, response){
 	});
 		
 	response.send();
-})
+});
 
 app.get("/testModel", function(request, response){
 	var slid = new SlidModel();
@@ -110,7 +108,7 @@ app.get("/testModel", function(request, response){
 	});
 
 	response.send();
-})
+});
 
 app.get("/testController", function(request, response){
 	console.log("testController");
@@ -121,16 +119,4 @@ app.get("/testController", function(request, response){
 	});
 
 	response.send();
-})
-
-app.get("/lol",function(request, response){
-	IOController.lol();
-
-	response.send();
-})
-
-/*var socket = io.connect();
-
-socket.on('message', function(data){
-    console.log(data.message);
-});*/
+});

@@ -9,6 +9,7 @@ module.exports = router;
 
 var multerMiddleware = multer({"dest": "C:/Users/Thuranos/AppData/Local/Temp/TEST"});
 
+//router.post("/slids", multerMiddleware.single("file"), SlidController.list);
 router.post("/slids", multerMiddleware.single("file"), function(request, response){
 	console.log("post /slids");
 

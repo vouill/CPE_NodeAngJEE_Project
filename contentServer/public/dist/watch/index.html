@@ -32,13 +32,17 @@
                 alert('Le serveur a un message pour vous : ' + message);
             })
 
-            $('#poke').click(function () {
-            	var idt = $('#idtext').val();
-
-				var valuet = $('#valuetext').val();
-
-                socket.emit('data_comm', { id: idt,value:valuet });
+            socket.on('slidEventServ', function(message){
+                alert('Le serveur a un message pour vous : ' + message);
             })
+
+
+            $('#poke').click(function () {
+                socket.emit('data_comm');
+
+                socket.emit('slidEvent', {CMD: 'START', PRES_ID:'test'});
+            })
+
         </script>
     </body>
 </html>

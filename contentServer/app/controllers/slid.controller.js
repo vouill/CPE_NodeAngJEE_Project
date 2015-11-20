@@ -9,13 +9,16 @@ var util = require('../utils/utils.js');
 
 function SlidController(){ };
 
+
+//SlidController.list = function(request, response){
 SlidController.list = function(callback){
 	var json = {};
 
 	fs.readdir(CONFIG.contentDirectory, function(err, buffer_dir){
 		
 		if(err){
-			callback(err);
+			console.error(err);
+			//response.status(500).send(err);
 		}
 
 		async.eachSeries(buffer_dir, function(file, callback) {
@@ -88,7 +91,6 @@ SlidController.read = function(id, json, callback){
 
 					console.log(dataData_filePath);
 					data=fs.readFileSync(dataData_filePath);
-
 				}
 				callback(err, data);
 			}
