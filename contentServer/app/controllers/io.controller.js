@@ -25,7 +25,7 @@ IOController.listen = function(server){
     		switch(slidEvent.CMD){
     			case 'START':
     				console.log('start pres: ' + slidEvent.PRES_ID);
-    				socket.emit('slidEvent', 'yooooo');
+    				socket.emit('slidEventServ',"FEEF");
     				break;
 
 				case 'PAUSE':
