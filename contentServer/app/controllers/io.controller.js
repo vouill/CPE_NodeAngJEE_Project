@@ -1,59 +1,81 @@
 module.exports = IOController;
 
+
+var presHandler = require("./presHandler.js");
+
+var pH = new presHandler();
 var io;
 var listener;
 
 var map = {},
-numOfUsers = 0;
+    numOfUsers = 0;
 
-function IOController(){ }
+function IOController() {}
 
-IOController.listen = function(server){
-	io = require("socket.io")(server);
-	listener = io.listen(server);
+IOController.listen = function(server) {
+        io = require("socket.io")(server);
 
-	var currentPres_id;
+        io.on('connection', function(socket) {
+            numOfUsers = numOfUsers + 1;
 
-	listener.sockets.on('connection', function(socket){
-		console.log('connection');
-		numOfUsers += 1;
- 		
-		socket.on('data_comm', function (data_comm) {
-			map[socket.id] = socket;
-			//console.dir(map);
-    	});
 
-    	socket.on('slidEvent', function (slidEvent){
-    		switch(slidEvent.CMD){
-    			case 'START':
-    				currentPres_id = slidEvent.PRES_ID;
-    				console.log('start pres: ' + currentPres_id);
+            socket.on('data_comm', function(data_comm) {
+                map[socket.id] = socket;
+            });
 
-    				socket.emit('slidEventServ',"yooooo");
-    				break;
+            //check if pres currently displaying, send pres info if one is being displayed
+            if (pH.status) {
+                socket.emit('serverMsg', pH.getCurrentSlid());
 
-				case 'PAUSE':
+            }
+            //routine from options
+            socket.on('slidEvent', function(slidEvent) {
+                switch (slidEvent.CMD) {
 
-    				break;
+                    case 'START':
 
-				case 'END':
+                        currentPres_id = slidEvent.PRES_ID;
+                        pH.init(currentPres_id);
+                        console.log('starting pres: ' + pH.getPresId());
+                        io.emit('serverMsg', pH.getCurrentSlid());
 
-    				break;
+                        break;
 
-				case 'BEGIN':
-    				break;
+                    case 'NEXT':
+                        if (pH.nextSlid()) {
+                            io.emit('serverMsg', pH.getCurrentSlid());
+                        }
 
-				case 'PREV':
+                        break;
 
-    				break;
+                    case 'PREV':
+                        if (pH.prevSlid()) {
+                            io.emit('serverMsg', pH.getCurrentSlid());
+                        }
 
-				case 'NEXT':
-				
-    				break;
+                        break;
+                    case 'END':
+                    pH.endPres();
+                    io.emit('serverMsg',null);
 
-    			default:
-    				break;
-    		}
-    	});
-	});
-};
+                    break;
+                    default:
+                        break;
+                }
+            });
+
+            socket.on('disconnect', function(){
+                numOfUsers = numOfUsers - 1;
+            console.log('user disconnected'+ numOfUsers);
+           
+            //todo delete entry map
+           });
+
+
+            console.log("user nb " + numOfUsers);
+        });
+
+
+        };
+
+

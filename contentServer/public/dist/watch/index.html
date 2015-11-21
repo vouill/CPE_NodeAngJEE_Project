@@ -13,36 +13,47 @@
 
         <h1>Communication avec socket.io !</h1>
 
-		<form>
-		id<br>
-		<input type="text" id="idtext">
-		<br>
-		value<br>
-		<input type="text" id="valuetext">
-		</form>
+		
 
-        <p><input type="button" value="Embêter le serveur" id="poke" /></p>
+        <p><input type="button" value="start" id="start" /></p>
+         <p><input type="button" value="next" id="next" /></p>
+          <p><input type="button" value="prev" id="prec" /></p>
+        <p><input type="button" value="end" id="end" /></p>
 
+<h3>serv response :</h3>
+        <textarea rows="15" cols="50" id="ta">
+</textarea>
+
+
+    </body>
+</html>
 
         <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
         <script>
             var socket = io.connect('http://localhost:1337');
-            socket.on('message', function(message) {
-                alert('Le serveur a un message pour vous : ' + message);
+            socket.on('serverMsg', function(message) {
+                //alert('Le serveur a un message pour vous : ' + message);
+                 $('#ta').val(JSON.stringify(message));
             });
 
-            socket.on('slidEventServ', function(slidEventServ){
-                alert('Le serveur a un slidpour vous : ' + slidEventServ);
+      
+
+
+            $('#start').click(function () {
+                socket.emit('slidEvent', {CMD: 'START', PRES_ID:'efa0a79a-2f20-4e97-b0b7-71f824bfe349'});
+            });
+
+              $('#end').click(function () {
+                socket.emit('slidEvent', {CMD: 'END'});
+            });
+
+            $('#next').click(function () {
+                socket.emit('slidEvent', {CMD: 'NEXT'});
             });
 
 
-            $('#poke').click(function () {
-                socket.emit('data_comm');
-
-                socket.emit('slidEvent', {CMD: 'START', PRES_ID:'test'});
-            })
-
+            $('#prec').click(function () {
+                socket.emit('slidEvent', {CMD: 'PREV'});
+            });
         </script>
-    </body>
-</html>

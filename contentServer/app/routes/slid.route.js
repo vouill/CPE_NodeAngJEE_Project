@@ -9,19 +9,12 @@ module.exports = router;
 
 var multerMiddleware = multer({"dest": "C:/Users/Thuranos/AppData/Local/Temp/TEST"});
 
-//router.post("/slids", multerMiddleware.single("file"), SlidController.list);
+//router.post("/slids", multerMiddleware.single("file"), SlidController.create(request.file));
+
 router.post("/slids", multerMiddleware.single("file"), function(request, response){
-	console.log("post /slids");
-
-	console.log(request.file.path);
-
-	console.log(request.file.originalname);
-
-	console.log(request.file.mimetype);	
-
+	
 	SlidController.create(request.file, function(err, callback){
-
-		response.send();
+		response.sendStatus(200);
 	});
 });
 

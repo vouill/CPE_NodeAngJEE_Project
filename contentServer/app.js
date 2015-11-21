@@ -3,6 +3,7 @@ console.log("It Works !")
 var http = require("http");
 var path = require("path");
 var fs = require('fs');
+var rdd = require("./rdd.js");
 var express = require('express');
 var SlidModel = require('./app/models/slid.model.js');
 var SlidController = require('./app/controllers/slid.controller.js');
@@ -15,6 +16,7 @@ var morgan = require("morgan");
 
 var app = express();
 
+
 //init config here and in whole porject.
 var CONFIG = require("./config.json");
 process.env.CONFIG = JSON.stringify(CONFIG);
@@ -22,6 +24,11 @@ process.env.CONFIG = JSON.stringify(CONFIG);
 //init server
 var server = http.createServer(app);
 IOController.listen(server);
+
+
+//Custom module manage presentations
+presmodule=rdd();
+
 
 server.listen(CONFIG.port, function() {
 	console.log("listening to "  + CONFIG.port);
@@ -41,54 +48,26 @@ app.use("/admin", express.static(path.join(__dirname, "public/dist/admin")));
 app.use("/watch", express.static(path.join(__dirname, "public/dist/watch")));
 app.use("/login", express.static(path.join(__dirname, "public/dist/login")));
 
-app.get("/loadPres", function(request, response){
-	var json_obj = {};
+app.get("/Loadpres",  function (request, response) {
+    console.log(CONFIG.presentationDirectory);
+
+presmodule.fileListFilter(function(data){
 	
-	//fetch presentationDirectory
-	fs.readdir(CONFIG.presentationDirectory, function(err_dir, buffer_dir){
-		console.log("Content directory: " + buffer_dir.toString());
-		
-		//loop on all files
-		for( var i in buffer_dir)
-		{		
-			var file_name = buffer_dir[i];
-			//select only '.json' files
-			if(path.extname(file_name) ==  ".json"){
-				console.log("File name: " + file_name.toString());
-				
-				//read json files
-				var buffer_file = JSON.parse(fs.readFileSync(CONFIG.presentationDirectory + "/" + file_name).toString());
-				console.log("File content: " + buffer_file.toString());
-				
-				var pres_id = buffer_file["id"];
-				json_obj[pres_id]=buffer_file;
-				
-				var id = Object.keys(buffer_file)[1];
-				console.log("id: " + id);
-				
-				console.log(buffer_file.id);
-			}
-		}
-		response.json(json_obj);	
-	});
+	var jsonObj = JSON.parse(data);
+	response.send(jsonObj);
+
+});
 });
 
-app.post("/savePres", function(request, response){
-	//For the sake of testing with a post method
-	var stringRecieved = '';
+
+app.post("/savePres",  function (request, response) {
+presmodule.prescreator(request.body,function(data){
 	
-	request.on('data', function (data) {
-            stringRecieved += data;
-        });
-		
-	request.on('end', function () {
-		console.log(JSON.parse(stringRecieved));
-		
-		fs.writeFileSync(CONFIG.presentationDirectory + '/' + (JSON.parse(stringRecieved)).id + ".pres.json", stringRecieved);
 	});
-		
-	response.send();
+    response.send('test id = ' + request.body.id);
 });
+
+
 
 app.get("/testModel", function(request, response){
 	var slid = new SlidModel();
