@@ -1,14 +1,16 @@
-angular.module('watcherApp').controller('watcherController',
-  ['$scope', function($scope) {
-    //$scope.socket = io.connect('http://localhost:1337');
-    $scope.message = "yoyoyo."
+angular.module('watcherApp').controller('watcherController', ['$scope', function($scope) {
+   $scope.toto = "message";
+   
+   var socket = io.connect('http://localhost:1337');
 
-    console.dir($scope)
+   socket.on('serverMsg', function(message) {
+       console.log(message.title);
+       $scope.toto = message.title;
+   });
 
-    /*$scope.socket.on('serverMsg', function(message) {
-        //alert('Le serveur a un message pour vous : ' + message);
-        $scope.message = JSON.stringify(message);
-    });*/
+   socket.emit('slidEvent', {CMD: 'START', PRES_ID:'efa0a79a-2f20-4e97-b0b7-71f824bfe349'});
+
+
   }
 
 ]);

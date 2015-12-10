@@ -51,7 +51,7 @@ app.use("/admin", express.static(path.join(__dirname, "public/dist/"))); //resou
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads/"))); //resources
 
-app.use("/watch", express.static(path.join(__dirname, "public/dist/watch")));
+app.use("/watch", express.static(path.join(__dirname, "public/dist/templates/watch")));
 app.use("/watch", express.static(path.join(__dirname, "public/dist/")));
 
 app.use("/login", express.static(path.join(__dirname, "public/dist/templates/login")));

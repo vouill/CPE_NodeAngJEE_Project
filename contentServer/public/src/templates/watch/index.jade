@@ -1,12 +1,19 @@
-html(lang="en", ng-app="watcherApp")
-	include ../includes/head
-  
-	body(ng-controller="watcherController")
-		include ../includes/header
-		main
-			h1 Watcher
-			p {{watcherController.message}}
-		//	textarea(rows="15" cols="50") {{watcherController.message}} 
-      
-	include ../includes/foot
-	//script(src="https://cdn.socket.io/socket.io-1.2.0.js")
+html(lang="en", ng-app="watcherApp", ng-controller="watcherController as ctrl")
+  include ../includes/head
+
+  body
+    main
+      h1 Watcher
+      p {{toto}} 
+
+//  include ../includes/foot
+script(src="https://cdn.socket.io/socket.io-1.2.0.js")
+//Vendors  
+script(src="vendors/jquery.js")
+script(src="vendors/bootstrap.js")
+script(src="vendors/angular.js")
+script(src="vendors/angular-route.js")
+script(src="vendors/ngDraggable.js")
+
+script(src="scripts/applications/watcher.application.js") 
+script(src="scripts/controllers/watcher.controller.js")
