@@ -7,9 +7,9 @@ var sass = require('gulp-sass');
 var nodemon =require('gulp-nodemon');
 
 /* define default tast, it starts nodemon and the watchers */
-gulp.task('default', ['start', 'jade', 'sass']);
+gulp.task('default', ['start', 'jade', 'sass', 'script']);
 
-gulp.task('start', ['jade:watch', 'sass:watch'], function () {
+gulp.task('start', ['jade:watch', 'sass:watch', 'script:watch'], function () {
   nodemon({
     script: 'app.js'
   , ext: 'js'
@@ -37,5 +37,14 @@ gulp.task('jade:watch', function() {
 
 /* watch sass changes */
 gulp.task('sass:watch', function () {
-  gulp.watch('public/src/**.*.sass', ['sass']);
+  gulp.watch('public/src/**/*.sass', ['sass']);
+});
+
+gulp.task('script', function() {
+  gulp.src('public/src/scripts/**/*.js')
+  .pipe(gulp.dest('public/dist/scripts/'));
+});
+
+gulp.task('script:watch', function(){
+  gulp.watch('public/src/scripts/**/*.js', ['script']);
 });

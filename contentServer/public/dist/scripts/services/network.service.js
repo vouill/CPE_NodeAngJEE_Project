@@ -5,7 +5,7 @@ angular.module('networkService', []).service('network',[ '$q', '$http', function
     getPresentations : function () {
       var deferred = $q.defer();
 
-      $http({'method': 'GET', 'url': '/loadPres'}).then(
+      $http({'method': 'GET', 'url': '/LoadPres'}).then(
         function(response) {
           deferred.resolve(response.data);
         },
@@ -36,7 +36,7 @@ angular.module('networkService', []).service('network',[ '$q', '$http', function
       var deferred = $q.defer();
       var data = new FormData();
       data.append('file', file);
-      
+
     }
   };
 }]);

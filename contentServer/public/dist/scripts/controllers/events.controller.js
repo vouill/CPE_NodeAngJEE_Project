@@ -13,6 +13,15 @@ function($scope, $log, $routeParams, auth, Content, Slide, Presentation, utils) 
     type: ''
   }
 
+//TODO choose between Presentations and Content.
+
+  Presentations.all().then(function (presentations) {
+    console.log("coucou");
+  }, function(error) {
+
+  }, function(info) {
+
+  });
 
   Content.all().then(function(contents) {
 
@@ -20,6 +29,7 @@ function($scope, $log, $routeParams, auth, Content, Slide, Presentation, utils) 
 
     Presentation.single($routeParams.uuid).then(
       function(presentation) {
+
         $scope.slides = Slide.all(presentation, contents);
       },
       function(error) {

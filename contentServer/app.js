@@ -44,27 +44,29 @@ app.use(morgan('dev'));
 
 app.use(defaultRoute);
 app.use(slidRoute);
-app.use("/admin", express.static(path.join(__dirname, "public/dist/admin")));
+app.use("/admin", express.static(path.join(__dirname, "public/dist/templates/admin")));
+app.use("/admin", express.static(path.join(__dirname, "public/dist/")));
+
 app.use("/watch", express.static(path.join(__dirname, "public/dist/watch")));
-app.use("/login", express.static(path.join(__dirname, "public/dist/login")));
+app.use("/watch", express.static(path.join(__dirname, "public/dist/")));
+
+app.use("/login", express.static(path.join(__dirname, "public/dist/templates/login")));
+app.use("/login", express.static(path.join(__dirname, "public/dist/")));
 
 app.get("/Loadpres",  function (request, response) {
     console.log(CONFIG.presentationDirectory);
-
-presmodule.fileListFilter(function(data){
-	
-	var jsonObj = JSON.parse(data);
-	response.send(jsonObj);
-
-});
+		presmodule.fileListFilter(function(data){
+			var jsonObj = JSON.parse(data);
+			response.send(jsonObj);
+		});
 });
 
 
 app.post("/savePres",  function (request, response) {
-presmodule.prescreator(request.body,function(data){
-	
+	presmodule.prescreator(request.body, function(data){
+		//TODO ?
 	});
-    response.send('test id = ' + request.body.id);
+  response.send('test id = ' + request.body.id);
 });
 
 

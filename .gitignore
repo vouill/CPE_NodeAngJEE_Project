@@ -14,3 +14,4 @@ settings.gradle
 node_modules
 .DS_Store
 contentServer/uploads/*
+contentServer/public/dist

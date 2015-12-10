@@ -39,7 +39,6 @@ angular.module('presentationFactory', []).factory('Presentation',  ['$q', '$http
       return deferred.promise;
     },
 
-
   };
 
   return factory;
@@ -60,6 +59,7 @@ angular.module('slideFactory', []).factory('Slide', ['$q', '$http', function($q,
       },
 
       all: function(presentation, contents) {
+
         var array = presentation.slidArray;
         var slides = {};
         for(i in array){
