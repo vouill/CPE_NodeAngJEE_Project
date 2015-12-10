@@ -14,4 +14,5 @@ settings.gradle
 node_modules
 .DS_Store
 contentServer/uploads/*
-contentServer/public/dist
+contentServer/public/dist/*
+npm-debug.log

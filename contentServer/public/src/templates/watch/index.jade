@@ -1,1 +1,12 @@
-h1 Watch
+html(lang="en", ng-app="watcherApp")
+	include ../includes/head
+  
+	body(ng-controller="watcherController")
+		include ../includes/header
+		main
+			h1 Watcher
+			p {{watcherController.message}}
+		//	textarea(rows="15" cols="50") {{watcherController.message}} 
+      
+	include ../includes/foot
+	//script(src="https://cdn.socket.io/socket.io-1.2.0.js")
