@@ -44,8 +44,10 @@ app.use(morgan('dev'));
 
 app.use(defaultRoute);
 app.use(slidRoute);
-app.use("/admin", express.static(path.join(__dirname, "public/dist/templates/admin")));
-app.use("/admin", express.static(path.join(__dirname, "public/dist/")));
+
+//TODO refactored
+app.use("/admin", express.static(path.join(__dirname, "public/dist/templates/admin"))); //index
+app.use("/admin", express.static(path.join(__dirname, "public/dist/"))); //resources
 
 app.use("/watch", express.static(path.join(__dirname, "public/dist/watch")));
 app.use("/watch", express.static(path.join(__dirname, "public/dist/")));

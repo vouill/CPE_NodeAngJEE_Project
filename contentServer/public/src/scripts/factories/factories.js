@@ -31,7 +31,11 @@ angular.module('presentationFactory', []).factory('Presentation',  ['$q', '$http
       var deferred = $q.defer();
       network.getPresentations().then(
         function(presentations) {
-           deferred.resolve(presentations[uuid]);
+
+          //TODO tidy this
+          console.log(presentations[0].value)
+
+           deferred.resolve(presentations[0].value);
         }, function (error) {
           deferred.reject('can not load presentation '+uuid);
         }
@@ -118,7 +122,7 @@ angular.module('slideFactory', []).factory('Slide', ['$q', '$http', function($q,
         return deferred.promise;
       },
 
-      model: {
+      model: function() { return  {
         title: '',
         id: '',
         text: '',
@@ -128,21 +132,44 @@ angular.module('slideFactory', []).factory('Slide', ['$q', '$http', function($q,
           fileName: '',
           type: ''
         }
-      }
-
-
+      };
+    }
   };
   return factory;
 }]);
 
-angular.module('contentFactory', []).factory('Content', ['$q', function($q) {
+angular.module('contentFactory', []).factory('Content', ['$q', 'network', function($q, network) {
   var factory = {
 
-    create : function(id, title, src, type) {
-      console.log("create");
+    create : function(file) {
+      var deferred = $q.defer();
+      deferred.notify('about to send content');
+      network.postContent(file).then( function(contents) {
+        deferred.resolve(contents);
+      }, function(error){
+        deferred.reject(error);
+      }, function(info){
+        deferred.notify(info);
+      });
+      return deferred.promise;
+
     },
 
     all: function() {
+      var deferred = $q.defer();
+      deferred.notify('about to receive contents');
+      network.getContents().then( function(contents) {
+        deferred.resolve(contents);
+      }, function(error){
+        deferred.reject(error);
+      }, function(info){
+        deferred.notify(info);
+      });
+      return deferred.promise;
+
+    },
+
+    locale: function() {
       var deferred = $q.defer();
       deferred.notify('about to receive content');
       var interval = setInterval(function(){
@@ -178,11 +205,13 @@ angular.module('contentFactory', []).factory('Content', ['$q', function($q) {
       return deferred.promise;
     },
 
-    model: {
-      id:'',
-      title: '',
-      fileName: '',
-      type: ''
+    model: function() {
+      return {
+        id:'',
+        title: '',
+        fileName: '',
+        type: ''
+      };
     }
 
   };

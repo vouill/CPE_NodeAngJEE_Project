@@ -6,8 +6,8 @@ aside(class="col-xs-3")
       p
         span.text-warning(ng-hide="presentations.length") No presentation available
       ul
-        li(ng-repeat="presentation in presentations") 
-          p.text-muted{{presentation.title}}&nbsp;&mdash;
+        li(ng-repeat="(id, presentation) in presentations") 
+          p.text-muted{{presentation.value.title}}&nbsp;&mdash;
             &nbsp;
             a(ng-href='/admin/#/edit/{{presentation.id}}') edit
             &nbsp;

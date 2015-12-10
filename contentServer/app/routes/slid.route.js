@@ -12,7 +12,6 @@ var multerMiddleware = multer({"dest": "C:/Users/Thuranos/AppData/Local/Temp/TES
 //router.post("/slids", multerMiddleware.single("file"), SlidController.create(request.file));
 
 router.post("/slids", multerMiddleware.single("file"), function(request, response){
-	
 	SlidController.create(request.file, function(err, callback){
 		response.sendStatus(200);
 	});
@@ -35,7 +34,7 @@ router.get("/slids", function(request, response){
 router.get("/slids/:slidId",function(request, response){
 	var id = request.params.slidId;
 	var json = request.query.json;
-		
+
 	console.log("get /slids/" + id);
 
 	SlidController.read(id, json, function(err, data){

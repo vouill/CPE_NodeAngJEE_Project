@@ -13,39 +13,40 @@ function($scope, $log, $routeParams, auth, Content, Slide, Presentation, utils) 
     type: ''
   }
 
-//TODO choose between Presentations and Content.
+// choose between Presentations and Content (create or edit)
+  var uuid = $routeParams.uuid;
 
-  Presentations.all().then(function (presentations) {
-    console.log("coucou");
-  }, function(error) {
+  if(!uuid) {
+    Presentation.all().then(function (presentations) {
+      $scope.presentations = presentations;
+    }, function(error) {
 
-  }, function(info) {
+    }, function(info) {
 
-  });
-
-  Content.all().then(function(contents) {
-
-    $scope.contents = contents;
-
-    Presentation.single($routeParams.uuid).then(
-      function(presentation) {
-
-        $scope.slides = Slide.all(presentation, contents);
-      },
-      function(error) {
+    });
+  } else {
+      Content.all().then(function(contents) {
+        $scope.contents = contents;
+        Presentation.single($routeParams.uuid).then(
+          function(presentation) {
+            $scope.slides = Slide.all(presentation, contents);
+          },
+          function(error) {
+            $log.warn('error : '+ error);
+          }
+        );
+      }, function(error) {
         $log.warn('error : '+ error);
-      }
-    );
+      });
+  }
 
-  }, function(error) {
-    $log.warn('error : '+ error);
-  });
 
   $scope.addContent = function() {
-
+    console.log("coucou")
   }
 
   $scope.edit = function(id) {
+    console.dir($scope.slides);
     if(id) {
       // edit
       var current = $scope.slides[id];
@@ -53,20 +54,20 @@ function($scope, $log, $routeParams, auth, Content, Slide, Presentation, utils) 
     } else {
       // create
       var id = utils.generateUUID();
-      var slide = Slide.model ;
+      var slide = Slide.model();
+      console.log('model:');
+      console.dir(Slide.model());
       slide.id = id;
       $scope.slide = slide;
+      console.dir($scope.slide)
       $scope.slides[id]= slide;
     }
   };
 
-  $scope.createContent = function(data) {
-    console.log(data);
+  $scope.createContent = function() {
     var file = $scope.file;
-    file.name = data.title;
+    Content.create(file)
 
-    console.log('file is ');
-    console.dir(file);
   }
   $scope.onDropComplete= function(content, event) {
     $scope.slide.content = content;
