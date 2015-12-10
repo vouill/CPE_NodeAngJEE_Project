@@ -1,36 +1,38 @@
 
 
 aside(class="col-xs-3")
-  .well
-    p.text-muted Slides
-    
-    div(class="text-center")
-      .panel(class="panel-default")
-        .panel-body
-          a(ng-click="edit()") 
-            span.glyphicon(class="glyphicon-plus-sign")    
-    
-    ul
-      li(ng-repeat="(id, slide) in slides")
-        .panel(class="panel-default slide")    
-          .panel-body 
-            img.thumbnail(ng-src="/admin/uploads/{{slide.content.fileName}}", alt="{{slide.content.title}}")
-            p.text-muted(class="text-center") {{slide.text}}      
-          .panel-footer
-            .row
-              div(class="col-xs-10") 
-                span.text-muted {{slide.title}}
-              div(class="col-xs-2 text-right")
-                a(ng-click="edit(slide.id)")
-                  span.glyphicon(class="glyphicon-edit")
-            
+  .row
+    .well
+      label Save presentation
+      button.btn(type="button", class="btn-block btn-success", ng-click="save()")
+        span.glyphicon(class="glyphicon-save")
+  
+  .row
+    .well
+      label Add slide
+      button.btn(type="button", class="btn-block btn-success" ng-click="edit()")
+        span.glyphicon(class="glyphicon-plus-sign")
+      
+  .row
+    .well
+      p.text-muted Slides
+      ul
+        li(ng-repeat="(id, slide) in slides" )
+          .panel(class="panel-default slide" ng-click="edit(slide.id)")    
+            .panel-body 
+              img.thumbnail(ng-src="/uploads/{{slide.content.fileName}}", alt="{{slide.content.title}}")
+              p.text-muted(class="text-center") {{slide.text}}      
+            .panel-footer
+              .row
+                div(class="col-xs-12") 
+                  span.text-muted {{slide.title}}
 
 section(class="col-xs-6")
   .panel(class="panel-default")
     .panel-heading
       h3.panel-title Create a new slide
     .panel-body
-      form#new-slide(role="form", ng-submit="createSlide(slide)")
+      form#new-slide(role="form")
         .form-group
           label(for="slide-title") Title
           input.form-control#slide-title(type="text", name="slide-title", placeholder="Title", ng-model="slide.title", required)
@@ -40,23 +42,20 @@ section(class="col-xs-6")
         .form-group
           label(for="slide-file") Drop zone
           div.form-control#slide-file(class="dropzone", ng-drop="true", ng-drop-success="onDropComplete($data,$event)")
-            img.img(ng-src="/admin/uploads/{{slide.content.fileName}}")
-        input.btn(type="submit", class="btn-block btn-success")   
+            img.img(ng-src="/uploads/{{slide.content.fileName}}")
 
 aside(class="col-xs-3")
-  .well
-    p.text-muted Contents
-    div(class="text-center")
-      .panel(class="panel-default")
-        .panel-body
-          form#new-content(role="form", ng-submit="createContent()")
-            .form-group
-              label(for="content-file") File
-              input#content-file(type="file", file-model="file", required)      
-            input.btn(type="submit", class="btn-block btn-success")   
-
-    ul
-      li(ng-repeat="(id, content) in contents") 
-        .panel(class="panel-default content", ng-drag="true", ng-drag-data="content", data-allow-transform="true")
-          .panel-body
-            img.thumbnail(ng-src="/admin/uploads/{{content.fileName}}", alt="{{content.id}}")
+  .row
+    .well
+      label Upload content    
+      form#new-content(role="form", ng-submit="upload()")
+        .form-group
+          input#content-file(type="file", file-model="file", required)      
+        input.btn(type="submit", class="btn-block btn-success")   
+  .row  
+    .well
+      ul
+        li(ng-repeat="(id, content) in contents") 
+          .panel(class="panel-default content", ng-drag="true", ng-drag-data="content", data-allow-transform="true")
+            .panel-body
+              img.thumbnail(ng-src="/uploads/{{content.fileName}}", alt="{{content.id}}")

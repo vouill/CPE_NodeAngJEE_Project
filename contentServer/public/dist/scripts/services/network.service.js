@@ -34,6 +34,7 @@ angular.module('networkService', []).service('network',[ '$q', '$http', function
         return deferred.promise;
     },
     postContent: function(file) {
+      //https://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
       var deferred = $q.defer();
       var data = new FormData();
       data.append('file', file);
@@ -42,6 +43,19 @@ angular.module('networkService', []).service('network',[ '$q', '$http', function
            transformRequest: angular.identity,
            headers: {'Content-Type': undefined}
        }).then(
+        function(response) {
+          deferred.resolve(response.data);
+        }, function(error) {
+          deferred.reject('can not upload');
+        }, function(update) {
+          deferred.notify(update);
+        }
+      )
+      return deferred.promise;
+    },
+    postPresentation: function(presentation) {
+      var deferred = $q.defer();
+      $http.post('/savePres', presentation).then(
         function(response) {
           deferred.resolve(response.data);
         }, function(error) {

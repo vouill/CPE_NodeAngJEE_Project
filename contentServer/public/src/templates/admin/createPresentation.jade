@@ -7,10 +7,8 @@ aside(class="col-xs-3")
         span.text-warning(ng-hide="presentations.length") No presentation available
       ul
         li(ng-repeat="(id, presentation) in presentations") 
-          p.text-muted{{presentation.value.title}}&nbsp;&mdash;
-            &nbsp;
-            a(ng-href='/admin/#/edit/{{presentation.id}}') edit
-            &nbsp;
+          p.text-muted {{presentation.title}} &nbsp;&mdash;&nbsp;
+            a(ng-href='/admin/#/edit/{{presentation.id}}') edit&nbsp;
             a(href='/admin/#/view') view
             
 section(class="col-xs-6")
@@ -20,11 +18,11 @@ section(class="col-xs-6")
         span.text-muted Create a new presentation &nbsp;
         span.text-info {{presentation.title}}    
     .panel-body
-      form#new-slide(role="form", ng-submit="createPresentation(presentation)")
+      form#new-slide(role="form", ng-submit="create(title, description)")
         .form-group
           label(for="presentation-title") Title
-          input.form-control#presentation-title(type="text", name="presentation-title", placeholder="type a title", ng-model="presentation.title")
+          input.form-control#presentation-title(type="text", name="presentation-title", placeholder="type a title", ng-model="title")
         .form-group
           label(for="presentation-description") Description
-          input.form-control#presentation-description(type="text", name="presentation-description", placeholder="type a description", ng-model="presentation.description")
+          input.form-control#presentation-description(type="text", name="presentation-description", placeholder="type a description", ng-model="description")
         input.btn(type="submit", class="btn-block btn-primary")    

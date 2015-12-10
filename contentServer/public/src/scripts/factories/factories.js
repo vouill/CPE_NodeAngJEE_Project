@@ -4,14 +4,20 @@ angular.module('presentationFactory', []).factory('Presentation',  ['$q', '$http
 
   var factory = {
 
-    create : function(id, title, description, slides) {
+
+    save: function(presentation) {
       var deferred = $q.defer();
-      var interval = setInterval(function(id, title, description, slides) {
-        deferred.notify("about to create presentation: "+title);
-        presentations[id] = {id: id, title: title, description: description, slides : slides};
-        deferred.resolve(presentations[id]);
-        clearInterval(interval);
-      }, 2000, id, title, description, slides);
+      network.postPresentation(presentation).then(
+        function(response) {
+          deferred.resolve(response);
+        },
+        function(error) {
+          deferred.reject(response);
+        },
+        function(update){
+          deferred.notify(update);
+        }
+      );
       return deferred.promise;
     },
 
@@ -31,11 +37,8 @@ angular.module('presentationFactory', []).factory('Presentation',  ['$q', '$http
       var deferred = $q.defer();
       network.getPresentations().then(
         function(presentations) {
-
-          //TODO tidy this
-          console.log(presentations[0].value)
-
-           deferred.resolve(presentations[0].value);
+          console.dir(presentations);
+           deferred.resolve(presentations[uuid]);
         }, function (error) {
           deferred.reject('can not load presentation '+uuid);
         }
@@ -67,7 +70,8 @@ angular.module('slideFactory', []).factory('Slide', ['$q', '$http', function($q,
         var array = presentation.slidArray;
         var slides = {};
         for(i in array){
-          var contentId = array[i].contentMap[1];
+          var contentId = array[i].content.id;
+        //  array[i].contentMap[1]
           var slide = {
             id : array[i].id,
             text : array[i].txt,

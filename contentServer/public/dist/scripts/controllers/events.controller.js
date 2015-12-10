@@ -40,13 +40,7 @@ function($scope, $log, $routeParams, auth, Content, Slide, Presentation, utils) 
       });
   }
 
-
-  $scope.addContent = function() {
-    console.log("coucou")
-  }
-
   $scope.edit = function(id) {
-    console.dir($scope.slides);
     if(id) {
       // edit
       var current = $scope.slides[id];
@@ -55,20 +49,71 @@ function($scope, $log, $routeParams, auth, Content, Slide, Presentation, utils) 
       // create
       var id = utils.generateUUID();
       var slide = Slide.model();
-      console.log('model:');
-      console.dir(Slide.model());
       slide.id = id;
       $scope.slide = slide;
-      console.dir($scope.slide)
       $scope.slides[id]= slide;
     }
   };
 
-  $scope.createContent = function() {
+  $scope.create = function(title, description) {
+
+      var presentation = {};
+      presentation.title = title;
+      presentation.description = description;
+      presentation.id = utils.generateUUID();
+      presentation.slidArray = [];
+
+      Presentation.save(presentation).then(
+        function(response) {
+          Presentation.all().then(function (presentations) {
+            $scope.presentations = presentations;
+          }, function(error) {
+
+          }, function(info) {
+
+          });
+        },
+        function(error) {},
+        function(update){}
+      )
+  }
+
+  $scope.upload = function() {
     var file = $scope.file;
-    Content.create(file)
+    Content.create(file).then( function(response) {
+      Content.all().then(function(contents) {
+        $scope.contents = contents;
+        Presentation.single($routeParams.uuid).then(
+          function(presentation) {
+            $scope.slides = Slide.all(presentation, contents);
+          },
+          function(error) {
+            $log.warn('error : '+ error);
+          }
+        );
+      }, function(error) {
+        $log.warn('error : '+ error);
+      });
+    }, function(error) {}, function(update) {})
+  }
+
+  $scope.save = function() {
+    if(uuid) {
+      Presentation.single($routeParams.uuid).then(
+        function(presentation) {
+          presentation.slidArray = $scope.slides;
+          Presentation.save(presentation);
+        },
+        function(error) {
+          $log.warn('error : '+ error);
+        }
+      );
+  } else {
+    console.log('no uuid');
+  }
 
   }
+
   $scope.onDropComplete= function(content, event) {
     $scope.slide.content = content;
   };

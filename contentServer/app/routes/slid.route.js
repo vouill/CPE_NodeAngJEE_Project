@@ -7,7 +7,7 @@ var router = express.Router();
 
 module.exports = router;
 
-var multerMiddleware = multer({"dest": "C:/Users/Thuranos/AppData/Local/Temp/TEST"});
+var multerMiddleware = multer({"dest": "tmp"});
 
 //router.post("/slids", multerMiddleware.single("file"), SlidController.create(request.file));
 
