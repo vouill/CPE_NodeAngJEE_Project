@@ -46,19 +46,19 @@ app.use(defaultRoute);
 app.use(slidRoute);
 
 //TODO refactored
-app.use("/admin", express.static(path.join(__dirname, "public/dist/templates/admin"))); //index
+app.use("/admin", express.static(path.join(__dirname, "public/dist/templates/admin"))); //html
 app.use("/admin", express.static(path.join(__dirname, "public/dist/"))); //resources
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads/"))); //resources
 
-app.use("/watch", express.static(path.join(__dirname, "public/dist/templates/watch")));
-app.use("/watch", express.static(path.join(__dirname, "public/dist/")));
+app.use("/watch", express.static(path.join(__dirname, "public/dist/templates/watch"))); //html
+app.use("/watch", express.static(path.join(__dirname, "public/dist/"))); //ressources
 
-app.use("/login", express.static(path.join(__dirname, "public/dist/templates/login")));
-app.use("/login", express.static(path.join(__dirname, "public/dist/")));
+app.use("/login", express.static(path.join(__dirname, "public/dist/templates/login"))); //html
+app.use("/login", express.static(path.join(__dirname, "public/dist/"))); //ressources
 
 app.get("/Loadpres",  function (request, response) {
-    console.log(CONFIG.presentationDirectory);
+  //  console.log(CONFIG.presentationDirectory);
 		presmodule.fileListFilter(function(data){
 			var jsonObj = JSON.parse(data);
 			response.send(jsonObj);

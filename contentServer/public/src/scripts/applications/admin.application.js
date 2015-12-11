@@ -1,1 +1,3 @@
-angular.module('adminApp', ['authService', 'utilsService', 'networkService','fileDirective','slideFactory', 'contentFactory', 'presentationFactory', 'ngRoute', 'ngDraggable']);
+angular.module('adminApp', ['authService', 'utilsService', 'networkService'
+,'fileDirective','socketFactory','slideFactory',
+'contentFactory', 'presentationFactory', 'ngRoute', 'ngDraggable']);

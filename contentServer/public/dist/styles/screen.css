@@ -30,16 +30,39 @@ ul {
   max-height: 15em;
   border: none; }
 
+.slides {
+  height: 70vh;
+  overflow: scroll; }
+
 .slide .panel-body {
   height: 15em;
   overflow: hidden;
   text-overflow: ellipsis; }
 
 .slide:hover {
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6); }
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+  cursor: pointer; }
+
+.contents {
+  height: 74vh;
+  overflow-y: scroll; }
 
 .content .panel-body {
   height: 12em; }
 
 .content:hover {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6); }
+
+.presentation {
+  height: calc(90vh - 50px);
+  background: #333; }
+  .presentation nav {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 1em; }
+    .presentation nav .container {
+      width: auto;
+      margin: 0 auto; }
+      .presentation nav .container .row .btn-group {
+        margin: auto; }

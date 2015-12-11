@@ -23,21 +23,22 @@ gulp.task('jade', function() {
   .pipe(jade({locals: {}})).pipe(gulp.dest('public/dist/'));
 });
 
-/* compile sass */
-gulp.task('sass', function () {
-  gulp.src('public/src/sass/*.sass')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('public/dist/css'));
-});
-
 /* watch jade sass */
 gulp.task('jade:watch', function() {
   gulp.watch('public/src/**/*.jade', ['jade']);
 });
 
+
+/* compile sass */
+gulp.task('sass', function () {
+  gulp.src('public/src/styles/*.sass')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('public/dist/styles/'));
+});
+
 /* watch sass changes */
 gulp.task('sass:watch', function () {
-  gulp.watch('public/src/**/*.sass', ['sass']);
+  gulp.watch('public/src/styles/*.sass', ['sass']);
 });
 
 gulp.task('script', function() {

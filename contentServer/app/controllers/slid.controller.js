@@ -15,7 +15,7 @@ SlidController.list = function(callback){
 	var json = {};
 
 	fs.readdir(CONFIG.contentDirectory, function(err, buffer_dir){
-		
+
 		if(err){
 			console.error(err);
 			//response.status(500).send(err);
@@ -43,7 +43,7 @@ SlidController.list = function(callback){
 				console.error(err);
 			}
 			else{
-				console.log("All files has been processed");
+			//	console.log("All files has been processed");
 				callback(err, json);
 			}
 		});
@@ -72,7 +72,7 @@ SlidController.create = function(file, callback){
 }
 
 SlidController.read = function(id, json, callback){
-	
+
 		SlidModel.read(id, function(err, data){
 		if(err){
 			callback(err);

@@ -1,21 +1,25 @@
 
 
-aside(class="col-xs-3")
+aside(class="col-xs-12 col-sm-3")
   .row
-    .well
-      label Save presentation
-      button.btn(type="button", class="btn-block btn-success", ng-click="save()")
-        span.glyphicon(class="glyphicon-save")
-  
+    .btn-group(role="group", class="btn-group-justified" aria-label="player buttons")
+      .btn-group(role= "group")
+        button.btn(type="button", class="btn-default", ng-click="save()") 
+          span save
+          span.glyphicon(class="pull-left glyphicon-floppy-disk")   
+      .btn-group(role= "group")
+        button.btn(type="button", class="btn-default", ng-click="watch()")
+          span watch
+          span.glyphicon(class="pull-left glyphicon-blackboard")     
+  br
   .row
-    .well
-      label Add slide
-      button.btn(type="button", class="btn-block btn-success" ng-click="edit()")
-        span.glyphicon(class="glyphicon-plus-sign")
-      
+    button.btn(type="button", class="btn-block btn-default" ng-click="edit()")
+      span new slide&nbsp;
+      span.glyphicon(class="pull-left glyphicon-file")
+  br
+
   .row
-    .well
-      p.text-muted Slides
+    .well.slides
       ul
         li(ng-repeat="(id, slide) in slides" )
           .panel(class="panel-default slide" ng-click="edit(slide.id)")    
@@ -27,7 +31,7 @@ aside(class="col-xs-3")
                 div(class="col-xs-12") 
                   span.text-muted {{slide.title}}
 
-section(class="col-xs-6")
+section(class="col-xs-12 col-sm-6")
   .panel(class="panel-default")
     .panel-heading
       h3.panel-title Create a new slide
@@ -44,16 +48,15 @@ section(class="col-xs-6")
           div.form-control#slide-file(class="dropzone", ng-drop="true", ng-drop-success="onDropComplete($data,$event)")
             img.img(ng-src="/uploads/{{slide.content.fileName}}")
 
-aside(class="col-xs-3")
+aside(class="col-xs-12 col-sm-3")
   .row
-    .well
-      label Upload content    
-      form#new-content(role="form", ng-submit="upload()")
-        .form-group
-          input#content-file(type="file", file-model="file", required)      
-        input.btn(type="submit", class="btn-block btn-success")   
+    form#new-content(role="form", ng-submit="upload()")
+      .form-group
+        input#content-file(type="file", file-model="file", required)      
+      input.btn(type="submit", class="btn-block btn-primary")  
+      
   .row  
-    .well
+    .well.contents
       ul
         li(ng-repeat="(id, content) in contents") 
           .panel(class="panel-default content", ng-drag="true", ng-drag-data="content", data-allow-transform="true")

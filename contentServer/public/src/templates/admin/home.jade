@@ -1,17 +1,25 @@
-aside(class="col-xs-3")
+aside(class="col-xs-12 col-sm-4")
   .panel(class="panel-default")
     .panel-heading
-      h3.panel-title Presentations
+      h3.panel-title 
+        span.text-muted Presentations
     .panel-body
-      p
-        span.text-warning(ng-hide="presentations.length") No presentation available
+      p(ng-hide="presentations")
+        span.text-warning No presentation available
       ul
         li(ng-repeat="(id, presentation) in presentations") 
-          p.text-muted {{presentation.title}} &nbsp;&mdash;&nbsp;
-            a(ng-href='/admin/#/edit/{{presentation.id}}') edit&nbsp;
-            a(href='/admin/#/view') view
+          p {{presentation.title}} &mdash; 
+            span.text-muted {{presentation.description}}
+            span(class="pull-right")
+              a(ng-href='/admin/#/edit/{{presentation.id}}') 
+                span.glyphicon(class="glyphicon-edit")
+              a(ng-href='/admin/#/play/{{presentation.id}}') 
+                span.glyphicon(class="glyphicon-play") 
+              a(ng-href='/admin/#/play/{{presentation.id}}') 
+                span.glyphicon(class="glyphicon-remove") 
+
             
-section(class="col-xs-6")
+section(class="col-xs-12 col-sm-8 ")
   .panel(class="panel-default")
     .panel-heading
       h3.panel-title

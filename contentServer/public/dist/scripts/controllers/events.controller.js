@@ -1,5 +1,5 @@
 var controller = angular.module('adminApp').controller('eventsController',
-function($scope, $log, $routeParams, auth, Content, Slide, Presentation, utils) {
+function($scope, $log, $routeParams, $window, auth, Content, Slide, Presentation, utils) {
 
   $scope.dropped = {};
   $scope.contents = {};
@@ -13,10 +13,11 @@ function($scope, $log, $routeParams, auth, Content, Slide, Presentation, utils) 
     type: ''
   }
 
-// choose between Presentations and Content (create or edit)
+  // choose between Presentations and Content (/#/home or /#/edit behaviors)
   var uuid = $routeParams.uuid;
 
   if(!uuid) {
+    // /#/home behavior
     Presentation.all().then(function (presentations) {
       $scope.presentations = presentations;
     }, function(error) {
@@ -25,11 +26,14 @@ function($scope, $log, $routeParams, auth, Content, Slide, Presentation, utils) 
 
     });
   } else {
+
+      // /#/edit behavior
       Content.all().then(function(contents) {
         $scope.contents = contents;
         Presentation.single($routeParams.uuid).then(
           function(presentation) {
             $scope.slides = Slide.all(presentation, contents);
+
           },
           function(error) {
             $log.warn('error : '+ error);
@@ -40,6 +44,11 @@ function($scope, $log, $routeParams, auth, Content, Slide, Presentation, utils) 
       });
   }
 
+  $scope.watch = function() {
+    $window.open("/admin/#/play/"+uuid, "_self");
+  }
+
+  //edit a slide or create a new one if no id were given
   $scope.edit = function(id) {
     if(id) {
       // edit
@@ -55,6 +64,7 @@ function($scope, $log, $routeParams, auth, Content, Slide, Presentation, utils) 
     }
   };
 
+  // create a presentation
   $scope.create = function(title, description) {
 
       var presentation = {};
@@ -63,6 +73,7 @@ function($scope, $log, $routeParams, auth, Content, Slide, Presentation, utils) 
       presentation.id = utils.generateUUID();
       presentation.slidArray = [];
 
+      // automatically save an empty presenation
       Presentation.save(presentation).then(
         function(response) {
           Presentation.all().then(function (presentations) {
@@ -78,6 +89,7 @@ function($scope, $log, $routeParams, auth, Content, Slide, Presentation, utils) 
       )
   }
 
+  //triggers the file upload, when the file is uploaded, reload the Contents and the Slides
   $scope.upload = function() {
     var file = $scope.file;
     Content.create(file).then( function(response) {
@@ -97,6 +109,7 @@ function($scope, $log, $routeParams, auth, Content, Slide, Presentation, utils) 
     }, function(error) {}, function(update) {})
   }
 
+  //Triggers the presentation save method
   $scope.save = function() {
     if(uuid) {
       Presentation.single($routeParams.uuid).then(
@@ -118,4 +131,4 @@ function($scope, $log, $routeParams, auth, Content, Slide, Presentation, utils) 
     $scope.slide.content = content;
   };
 
-}).$inject = ['$scope', '$log', '$routeParams', 'auth', 'Content', 'Slide', 'Presentation', 'utils'];
+}).$inject = ['$scope', '$log', '$routeParams', '$window','auth', 'Content', 'Slide', 'Presentation', 'utils'];

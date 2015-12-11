@@ -18,13 +18,10 @@ router.post("/slids", multerMiddleware.single("file"), function(request, respons
 });
 
 router.get("/slids", function(request, response){
-	console.log("get /slids");
 
 	SlidController.list(function(err,data){
 		if(err){
 			console.error(err);
-		}else{
-			console.log(data);
 		}
 
 		response.send(data);
