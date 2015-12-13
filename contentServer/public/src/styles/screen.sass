@@ -53,17 +53,13 @@ ul
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6)
 
 .presentation
-  height: calc(90vh - 50px)
-  background: #333
+  position: absolute
+  top: 50%
+  transform: translateY(-50%)
 
-  nav
-    position: absolute
-    bottom: 0
-    width: 100%
-    padding: 1em
-    .container
-      width: auto
-      margin: 0 auto
-
-      .row .btn-group
-        margin: auto
+//TODO browser support
+#flash, #slide
+  margin-top: 50vh
+  transform: translateY(-50%)
+#watcher
+  background: #222

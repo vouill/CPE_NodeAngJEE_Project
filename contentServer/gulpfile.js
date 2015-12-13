@@ -19,11 +19,11 @@ gulp.task('start', ['jade:watch', 'sass:watch', 'script:watch'], function () {
 
 /* compile jade */
 gulp.task('jade', function() {
-  gulp.src('public/src/**/*.jade')
+  gulp.src(['public/src/**/*.jade', '!public/src/templates/includes/**/*.jade' ])
   .pipe(jade({locals: {}})).pipe(gulp.dest('public/dist/'));
 });
 
-/* watch jade sass */
+/* watch jade */
 gulp.task('jade:watch', function() {
   gulp.watch('public/src/**/*.jade', ['jade']);
 });

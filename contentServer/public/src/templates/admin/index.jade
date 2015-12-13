@@ -1,5 +1,6 @@
 html(lang="en", ng-app="adminApp")
-  // Head
+  -var head = { title: 'Admin test' }
+
   include ../includes/head
   
   body
@@ -8,6 +9,33 @@ html(lang="en", ng-app="adminApp")
         
     main.container-fluid(ng-view)
       
+    //TODO replace with conditionnal includes  
     include ../includes/foot
+      
+    //TODO download io
+    script(src="https://cdn.socket.io/socket.io-1.2.0.js")
+
+    // App 
+    script(src="scripts/applications/admin.application.js")
+
+
+    // Directives
+    script(src='scripts/directives/file.directive.js')
+
+    // Factories
+    script(src="scripts/factories/factories.js")
+
+    // Services 
+    script(src="scripts/services/auth.service.js")
+    script(src="scripts/services/utils.service.js")
+    script(src="scripts/services/network.service.js")
+    
+    // Controllers
+    script(src="scripts/controllers/events.controller.js")
+    script(src="scripts/controllers/player.controller.js")
+
+
+    // Routes
+    script(src="scripts/routes/admin.routes.js")
 
     

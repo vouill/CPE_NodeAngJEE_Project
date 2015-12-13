@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('adminApp').config(function($routeProvider) {
-  $routeProvider.when('/', {
+  $routeProvider.when('/home', {
     controller: 'eventsController',
     controllerAs: 'controller',
     templateUrl: '/admin/home.html'
@@ -11,8 +11,7 @@ angular.module('adminApp').config(function($routeProvider) {
     templateUrl: '/admin/edit.html'
   }).when('/play/:uuid', {
     controller: 'playerController',
-    controllerAs: 'ctrl',
     templateUrl: '/admin/player.html'
   })
-  .otherwise({ redirectTo: '/create'});
+  .otherwise({ redirectTo: '/home'});
 });

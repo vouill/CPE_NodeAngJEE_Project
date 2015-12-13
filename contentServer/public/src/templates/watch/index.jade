@@ -1,20 +1,23 @@
-html(lang="en", ng-app="watcherApp", ng-controller="watcherController as ctrl")
+html(lang="en")
   include ../includes/head
 
-  body
-    main
-      h1 Watcher
-      p {{toto}} 
-    
+  body#watcher
+    .container-fluid
+      main(class="col-xs-12")
+        .row#flash
+          .well        
+            p Sorry there is no presentation currently running&hellip;
+        .row#slide
+          .panel(class="panel-default")
+            .panel-heading
+              h3.panel-title#slide-title
+            .panel-body 
+              p#slide-text
+              img.img#slide-content(src="" alt="content")
+  //Vendors  
 
-//  include ../includes/foot
-script(src="https://cdn.socket.io/socket.io-1.2.0.js")
-//Vendors  
-script(src="vendors/jquery.js")
-script(src="vendors/bootstrap.js")
-script(src="vendors/angular.js")
-script(src="vendors/angular-route.js")
-script(src="vendors/ngDraggable.js")
-
-script(src="scripts/applications/watcher.application.js") 
-script(src="scripts/controllers/watcher.controller.js")
+  script(src="https://cdn.socket.io/socket.io-1.2.0.js")
+  script(src="vendors/jquery.js")
+  script(src="vendors/bootstrap.js")
+  
+  script(src="scripts/applications/watcher.application.js")

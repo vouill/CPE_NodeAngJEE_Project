@@ -1,7 +1,8 @@
 section.presentation(class="col-xs-offset-3 col-xs-6")
 
   main.row
-    .panel(class="panel-default")
+    
+    .panel(class="panel-default" ng-show="slide")
       .panel-heading
         h3.panel-title {{slide.title}}
       .panel-body 
@@ -11,13 +12,12 @@ section.presentation(class="col-xs-offset-3 col-xs-6")
   nav.row
     .container
       .row
-//        .btn-group(role="group", aria-label="player buttons")
-//          button.btn(type="button", class="btn-default", ng-click="play()") 
-//            span.glyphicon(class="glyphicon-play")    
-//          button.btn(type="button", class="btn-default", ng-click="previous()")
-//            span.glyphicon(class="glyphicon-chevron-left")
-//          button.btn(type="button", class="btn-default", ng-click="next()") 
-//            span.glyphicon(class="glyphicon-chevron-right")
-//          button.btn(type="button", class="btn-default", ng-click="stop()")
-//            span.glyphicon(class="glyphicon-stop")
-//
+        .btn-group(role="group", aria-label="player buttons")
+          button.btn(type="button", class="btn-default", ng-click="play()") 
+            span.glyphicon(class="glyphicon-play")    
+          button.btn(type="button", class="btn-default", ng-click="previous()")
+            span.glyphicon(class="glyphicon-chevron-left")
+          button.btn(type="button", class="btn-default", ng-click="next()") 
+            span.glyphicon(class="glyphicon-chevron-right")
+          button.btn(type="button", class="btn-default", ng-click="stop()")
+            span.glyphicon(class="glyphicon-stop")
