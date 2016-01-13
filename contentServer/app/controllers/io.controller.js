@@ -21,6 +21,8 @@ IOController.listen = function(server) {
 
             socket.on('data_comm', function(data_comm) {
                 map[socket.id] = socket;
+                console.log(socket.id);
+                console.log(map);
             });
 
             //check if pres currently displaying, send pres info if one is being displayed

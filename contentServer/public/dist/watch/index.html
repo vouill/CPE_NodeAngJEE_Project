@@ -32,14 +32,16 @@
         <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
         <script>
             var socket = io.connect('http://localhost:1337');
+
+            socket.emit('data_comm',"");
+
             socket.on('serverMsg', function(message) {
                 //alert('Le serveur a un message pour vous : ' + message);
                  $('#ta').val(JSON.stringify(message));
             });
 
       
-
-
+            
             $('#start').click(function () {
                 socket.emit('slidEvent', {CMD: 'START', PRES_ID:'efa0a79a-2f20-4e97-b0b7-71f824bfe349'});
             });
